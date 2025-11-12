@@ -12,17 +12,17 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styling (Like Chrome Hearts) */
+/* Header Styling (Centered Logo) */
 .header {
-    position: fixed; /* Stays at the top */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     padding: 20px 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* MODIFIED: Centers the logo */
     align-items: center;
-    border-bottom: 1px solid #333; /* Subtle dividing line */
+    border-bottom: 1px solid #333;
     z-index: 100;
     background-color: #000;
 }
@@ -34,16 +34,7 @@ body {
     color: #fff;
 }
 
-.nav a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 15px;
-    font-size: 0.8em;
-}
-
-.nav span {
-    font-size: 0.8em;
-}
+/* DELETE .nav and .nav a styles here */
 
 /* Main Content Styling (Centered) */
 .main-content {
@@ -51,20 +42,33 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Takes up the whole screen height */
+    height: 100vh;
     text-align: center;
-    padding-top: 60px; /* Push content down past the fixed header */
+    padding-top: 60px;
 }
 
-/* Footer Styling (Like Chrome Hearts) */
+/* Footer Styling */
 .footer {
-    position: fixed; /* Stays at the bottom */
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     padding: 10px 30px;
     text-align: center;
     font-size: 0.7em;
-    border-top: 1px solid #333; /* Subtle dividing line */
+    border-top: 1px solid #333;
     background-color: #000;
+}
+
+/* NEW: Social Icons Styling */
+.social-icons {
+    margin-bottom: 5px; /* Spacing above copyright */
+}
+
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin: 0 10px;
+    letter-spacing: 2px; /* Spread text out for better look */
 }
