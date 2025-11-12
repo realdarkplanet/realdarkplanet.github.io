@@ -45,6 +45,13 @@ body {
     padding-top: 60px; /* Push content down past the fixed header */
 }
 
+/* NEW: Main Logo Styling */
+.main-logo {
+    width: 80px; /* Adjust size as needed, 80px is a good start */
+    height: auto;
+    margin-bottom: 20px; /* Adds space between the logo and "Coming Soon" text */
+}
+
 /* Footer Styling (Fixed Bottom) */
 .footer {
     position: fixed;
@@ -61,13 +68,13 @@ body {
 /* Social Icons Styling (Centered & Equidistant) */
 .social-icons {
     margin-bottom: 5px; 
-    text-align: center; /* Ensures the icon container is centered */
+    text-align: center; 
 }
 
 .social-icons a {
     color: #fff; /* Ensures the icons are white */
     text-decoration: none;
-    font-size: 1.2em; /* Makes icons a good size */
+    font-size: 1.2em; 
     margin: 0 15px; /* Adds equal spacing between each icon */
     display: inline-block;
 }
