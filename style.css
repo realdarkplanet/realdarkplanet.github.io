@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styling (Centered Logo) */
+/* Header Styling (Left-Aligned Logo) */
 .header {
     position: fixed;
     top: 0;
@@ -20,7 +20,7 @@ body {
     width: 100%;
     padding: 20px 30px;
     display: flex;
-    justify-content: center; /* MODIFIED: Centers the logo */
+    justify-content: flex-start; /* Keeps content (logo) aligned to the left */
     align-items: center;
     border-bottom: 1px solid #333;
     z-index: 100;
@@ -34,8 +34,6 @@ body {
     color: #fff;
 }
 
-/* DELETE .nav and .nav a styles here */
-
 /* Main Content Styling (Centered) */
 .main-content {
     display: flex;
@@ -44,10 +42,10 @@ body {
     align-items: center;
     height: 100vh;
     text-align: center;
-    padding-top: 60px;
+    padding-top: 60px; /* Push content down past the fixed header */
 }
 
-/* Footer Styling */
+/* Footer Styling (Fixed Bottom) */
 .footer {
     position: fixed;
     bottom: 0;
@@ -60,15 +58,16 @@ body {
     background-color: #000;
 }
 
-/* NEW: Social Icons Styling */
+/* Social Icons Styling (Centered & Equidistant) */
 .social-icons {
-    margin-bottom: 5px; /* Spacing above copyright */
+    margin-bottom: 5px; 
+    text-align: center; /* Ensures the icon container is centered */
 }
 
 .social-icons a {
-    color: #fff;
+    color: #fff; /* Ensures the icons are white */
     text-decoration: none;
-    font-size: 0.9em;
-    margin: 0 10px;
-    letter-spacing: 2px; /* Spread text out for better look */
+    font-size: 1.2em; /* Makes icons a good size */
+    margin: 0 15px; /* Adds equal spacing between each icon */
+    display: inline-block;
 }
