@@ -1,0 +1,70 @@
+/* Basic Reset and Dark Background */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000; /* Super dark background */
+    color: #fff; /* White text */
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+/* Header Styling (Like Chrome Hearts) */
+.header {
+    position: fixed; /* Stays at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333; /* Subtle dividing line */
+    z-index: 100;
+    background-color: #000;
+}
+
+.logo {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 0.8em;
+}
+
+.nav span {
+    font-size: 0.8em;
+}
+
+/* Main Content Styling (Centered) */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Takes up the whole screen height */
+    text-align: center;
+    padding-top: 60px; /* Push content down past the fixed header */
+}
+
+/* Footer Styling (Like Chrome Hearts) */
+.footer {
+    position: fixed; /* Stays at the bottom */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 30px;
+    text-align: center;
+    font-size: 0.7em;
+    border-top: 1px solid #333; /* Subtle dividing line */
+    background-color: #000;
+}
