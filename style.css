@@ -45,11 +45,17 @@ body {
     padding-top: 60px; /* Push content down past the fixed header */
 }
 
-/* Main Logo Styling */
+/* Main Logo Styling (MODIFIED: Animation Added) */
 .main-logo {
-    width: 80px; /* Adjust size as needed, 80px is a good start */
+    width: 80px; 
     height: auto;
-    margin-bottom: 20px; /* Adds space between the logo and "Coming Soon" text */
+    margin-bottom: 20px;
+    /* NEW: Add a subtle drop shadow that pulses */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.4); 
+    border-radius: 50%; /* If your logo is circular, this makes the glow round */
+    
+    /* NEW: Apply the pulse animation */
+    animation: glow-pulse 3s infinite alternate ease-in-out; 
 }
 
 /* Footer Styling (Fixed Bottom) */
@@ -74,9 +80,17 @@ body {
 .social-icons a {
     color: #fff; /* Ensures the icons are white */
     text-decoration: none;
-    font-size: 1.5em; /* MODIFIED: Makes icons slightly bigger */
+    font-size: 1.5em; /* Makes icons slightly bigger */
     margin: 0 15px; /* Adds equal spacing between each icon */
     display: inline-block;
 }
 
-/* Animation suggestion would go here */
+/* ANIMATION KEYFRAMES (NEW) */
+@keyframes glow-pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.3);
+    }
+}
