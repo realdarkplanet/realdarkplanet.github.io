@@ -45,7 +45,7 @@ body {
     padding-top: 60px; /* Push content down past the fixed header */
 }
 
-/* NEW: Main Logo Styling */
+/* Main Logo Styling */
 .main-logo {
     width: 80px; /* Adjust size as needed, 80px is a good start */
     height: auto;
@@ -74,7 +74,9 @@ body {
 .social-icons a {
     color: #fff; /* Ensures the icons are white */
     text-decoration: none;
-    font-size: 1.2em; 
+    font-size: 1.5em; /* MODIFIED: Makes icons slightly bigger */
     margin: 0 15px; /* Adds equal spacing between each icon */
     display: inline-block;
 }
+
+/* Animation suggestion would go here */
