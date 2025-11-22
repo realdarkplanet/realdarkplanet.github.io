@@ -45,18 +45,86 @@ body {
     padding-top: 60px; /* Push content down past the fixed header */
 }
 
-/* Main Logo Styling (MODIFIED: Animation Added) */
+/* Main Logo Styling (Pulsing Effect) */
 .main-logo {
     width: 80px; 
     height: auto;
     margin-bottom: 20px;
-    /* NEW: Add a subtle drop shadow that pulses */
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.4); 
-    border-radius: 50%; /* If your logo is circular, this makes the glow round */
-    
-    /* NEW: Apply the pulse animation */
+    border-radius: 50%;
     animation: glow-pulse 3s infinite alternate ease-in-out; 
 }
+
+/* NEWSLETTER STYLES (Custom styling for the embedded Mailchimp form) */
+.newsletter-container {
+    max-width: 350px; /* Reduced width for better look */
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Hides Mailchimp's required text */
+.indicates-required, .asterisk {
+    display: none !important;
+}
+
+/* Hides Mailchimp's referral badge */
+.refferal_badge {
+    display: none !important;
+}
+
+/* Styles Mailchimp's heading */
+#mc_embed_signup h2 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #fff;
+}
+
+.subtitle {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-bottom: 25px;
+    display: block; /* Ensure subtitle is centered */
+}
+
+/* Styles the input field */
+#mc-embedded-subscribe-form input.email {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #444;
+    background-color: #111;
+    color: #fff;
+    font-size: 1em;
+    text-align: center;
+}
+
+/* Styles the submit button */
+#mc-embedded-subscribe-form .button {
+    width: 100%;
+    padding: 12px;
+    background-color: #fff; /* White button */
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background-color 0.2s;
+    font-size: 1em; /* Ensures text is readable */
+}
+
+#mc-embedded-subscribe-form .button:hover {
+    background-color: #ddd;
+}
+
+/* Styles custom agreement text */
+.agreement-text {
+    font-size: 0.7em;
+    color: #888;
+    margin-top: 10px;
+    display: block;
+}
+
 
 /* Footer Styling (Fixed Bottom) */
 .footer {
@@ -78,14 +146,14 @@ body {
 }
 
 .social-icons a {
-    color: #fff; /* Ensures the icons are white */
+    color: #fff; 
     text-decoration: none;
-    font-size: 1.5em; /* Makes icons slightly bigger */
-    margin: 0 15px; /* Adds equal spacing between each icon */
+    font-size: 1.5em; /* Bigger icons */
+    margin: 0 15px; 
     display: inline-block;
 }
 
-/* ANIMATION KEYFRAMES (NEW) */
+/* ANIMATION KEYFRAMES */
 @keyframes glow-pulse {
     0% {
         box-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.1);
