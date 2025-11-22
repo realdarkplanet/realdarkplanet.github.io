@@ -62,10 +62,10 @@ body {
     margin-top: 10px;
 }
 
-/* Hides Mailchimp's required text and the main label */
+/* FIX: Hides the "Email Address" label, required text, and asterisk */
+#mc_embed_signup label,
 .indicates-required, 
-.asterisk,
-label[for="mce-EMAIL"] { 
+.asterisk { 
     display: none !important;
 }
 
@@ -122,9 +122,8 @@ label[for="mce-EMAIL"] {
 
 /* Styles custom agreement text */
 .agreement-text {
-    /* MODIFIED: Reduced font size and forced single line */
-    font-size: 0.6em; 
-    white-space: nowrap;
+    font-size: 0.6em; /* Reduced font size for single line */
+    white-space: nowrap; /* Forces text to stay on one line */
     color: #888;
     margin-top: 10px;
     display: block;
@@ -139,7 +138,6 @@ label[for="mce-EMAIL"] {
     width: 100%;
     padding: 10px 30px;
     text-align: center;
-    /* Reduced font size slightly to keep all text on one line */
     font-size: 0.65em; 
     border-top: 1px solid #333;
     background-color: #000;
