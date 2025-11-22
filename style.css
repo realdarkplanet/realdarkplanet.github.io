@@ -62,13 +62,16 @@ body {
     margin-top: 10px;
 }
 
-/* Hides Mailchimp's required text */
-.indicates-required, .asterisk {
+/* Hides Mailchimp's required text and the main label */
+.indicates-required, 
+.asterisk,
+label[for="mce-EMAIL"] { 
     display: none !important;
 }
 
-/* Hides Mailchimp's referral badge */
-.refferal_badge {
+/* Hides Mailchimp's referral badge and its containing paragraph to remove the vertical gap */
+.refferal_badge,
+.optionalParent > p { 
     display: none !important;
 }
 
@@ -84,7 +87,7 @@ body {
     font-size: 0.9em;
     color: #aaa;
     margin-bottom: 25px;
-    display: block; /* Ensure subtitle is centered */
+    display: block; 
 }
 
 /* Styles the input field */
@@ -102,7 +105,7 @@ body {
 /* Styles the submit button */
 #mc-embedded-subscribe-form .button {
     width: 100%;
-    padding: 12px;
+    padding: 15px 12px; /* Increased padding to make the button taller */
     background-color: #fff; /* White button */
     color: #000;
     border: none;
@@ -110,7 +113,7 @@ body {
     font-weight: bold;
     letter-spacing: 1px;
     transition: background-color 0.2s;
-    font-size: 1em; /* Ensures text is readable */
+    font-size: 1em; 
 }
 
 #mc-embedded-subscribe-form .button:hover {
@@ -119,7 +122,9 @@ body {
 
 /* Styles custom agreement text */
 .agreement-text {
-    font-size: 0.7em;
+    /* MODIFIED: Reduced font size and forced single line */
+    font-size: 0.6em; 
+    white-space: nowrap;
     color: #888;
     margin-top: 10px;
     display: block;
@@ -134,7 +139,8 @@ body {
     width: 100%;
     padding: 10px 30px;
     text-align: center;
-    font-size: 0.7em;
+    /* Reduced font size slightly to keep all text on one line */
+    font-size: 0.65em; 
     border-top: 1px solid #333;
     background-color: #000;
 }
@@ -148,7 +154,7 @@ body {
 .social-icons a {
     color: #fff; 
     text-decoration: none;
-    font-size: 1.5em; /* Bigger icons */
+    font-size: 1.5em; 
     margin: 0 15px; 
     display: inline-block;
 }
