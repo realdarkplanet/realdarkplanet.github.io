@@ -1,9 +1,9 @@
 /* --- RESET & BASICS --- */
 :root {
-    --bg-color: #050505;       /* Deep Black/Charcoal */
-    --terminal-green: #33ff00; /* Classic Terminal Green */
-    --alert-red: #ff0033;      /* The RDP "Danger" Red */
-    --dim-gray: #444;
+    --void-black: #000000;      /* The outside world */
+    --screen-black: #080f08;    /* The dark screen background */
+    --terminal-green: #55ff55;  /* Bright, glowing green */
+    --alert-red: #ff2222;       /* The RDP Eye Red */
 }
 
 * {
@@ -13,229 +13,281 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: var(--void-black);
     color: var(--terminal-green);
-    font-family: "Courier New", Courier, monospace; /* Fallback to standard monospace */
+    font-family: "Courier New", Courier, monospace;
     height: 100vh;
-    overflow: hidden; /* Prevents scroll bars for the "Screen" feel */
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 0 0 4px rgba(51, 255, 0, 0.4); /* Slight glow on all text */
+    overflow: hidden;
 }
 
-/* --- CRT & SCANLINE EFFECTS --- */
-.crt-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(circle, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 100%);
-    pointer-events: none;
-    z-index: 999;
+/* --- MONITOR & SCREEN CONTAINER --- */
+.monitor-bezel {
+    /* This creates the "floating screen" effect */
+    width: 90vw;
+    max-width: 800px;
+    aspect-ratio: 4 / 3; /* Classic CRT aspect ratio */
+    background-color: var(--screen-black);
+    border-radius: 20px; /* Rounded corners of old screens */
+    padding: 20px;
+    position: relative;
+    
+    /* The Green Glow Effect */
+    box-shadow: 
+        0 0 20px rgba(85, 255, 85, 0.2),  /* Inner glow */
+        0 0 50px rgba(85, 255, 85, 0.1),  /* Outer halo */
+        inset 0 0 60px rgba(0, 0, 0, 0.8); /* Vignette inside */
+    
+    /* Subtle screen curvature */
+    perspective: 1000px;
 }
 
-.scanlines {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
-    z-index: 998;
-    animation: scroll 10s linear infinite;
-}
-
-@keyframes scroll {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100%; }
-}
-
-/* --- LAYOUT --- */
-.terminal-container {
-    width: 90%;
-    max-width: 600px;
-    height: 90vh;
+.crt-screen {
+    width: 100%;
+    height: 100%;
+    /* A subtle radial gradient to make the center brighter */
+    background: radial-gradient(circle at center, #0a140a 0%, #050805 100%);
+    border-radius: 10px;
+    overflow: hidden; /* Clips scanlines to the screen area */
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
-    z-index: 1;
+    padding: 20px;
+    
+    /* Text Glow */
+    text-shadow: 0 0 4px rgba(85, 255, 85, 0.6);
+    
+    /* Slight 3D curve effect on the screen content */
+    transform: rotateX(1deg);
+}
+
+/* --- CRT EFFECTS --- */
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.6;
+}
+
+/* Adds a subtle flicker to the whole screen */
+.screen-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(85, 255, 85, 0.03);
+    pointer-events: none;
+    z-index: 11;
+    animation: flicker 0.1s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.9; }
+    100% { opacity: 1; }
 }
 
 /* --- HEADER --- */
 .header-bar {
-    border-bottom: 1px solid var(--dim-gray);
-    padding-bottom: 10px;
-    font-size: 0.8rem;
     display: flex;
     justify-content: space-between;
-    opacity: 0.7;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    opacity: 0.9;
 }
 
-.blink {
-    animation: blinker 1.5s step-end infinite;
-    color: var(--alert-red);
-}
-
-@keyframes blinker {
-    50% { opacity: 0; }
-}
-
-/* --- MAIN CONTENT --- */
+/* --- MAIN CONTENT & EYE --- */
 .content-wrapper {
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    flex-grow: 1; /* Fills available space */
+    justify-content: center;
 }
 
-/* The Eye Logo Styling */
 .eye-container {
     position: relative;
-    width: 150px; /* Adjust based on your logo size */
-    height: 150px;
-    margin-bottom: 20px;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .rdp-eye {
-    width: 100%;
+    width: 80%;
     height: auto;
-    filter: brightness(0.8) contrast(1.2); /* Gritty look */
+    /* Ensure the red eye glows red, not green */
+    filter: drop-shadow(0 0 8px var(--alert-red));
 }
 
-/* Radar Sweep Effect behind the eye */
+/* Green Radar Ring & Sweep */
 .radar-sweep {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 140%;
-    height: 140%;
-    border: 1px solid rgba(51, 255, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(85, 255, 85, 0.5);
     border-radius: 50%;
-    background: conic-gradient(from 0deg, transparent 0deg, rgba(51, 255, 0, 0.1) 60deg, transparent 60deg);
-    animation: radar-spin 4s linear infinite;
-    pointer-events: none;
-    z-index: -1;
+    /* The spinning sweep */
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(85, 255, 85, 0.3) 30deg, transparent 30deg);
+    animation: radar-spin 3s linear infinite;
+    z-index: 1;
 }
+
+/* Inner radar rings */
+.radar-sweep::before, .radar-sweep::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(85, 255, 85, 0.3);
+    border-radius: 50%;
+}
+.radar-sweep::before { width: 66%; height: 66%; }
+.radar-sweep::after { width: 33%; height: 33%; }
 
 @keyframes radar-spin {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* Text Styling */
-.glitch-text {
-    font-size: 2rem;
-    letter-spacing: 5px;
-    position: relative;
-    color: #fff; /* White title for contrast */
+    to { transform: rotate(360deg); }
 }
 
 .terminal-text {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--dim-gray);
-    margin-bottom: 20px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    align-self: flex-start;
+    width: 100%;
+    max-width: 500px;
 }
 
-/* --- MAILCHIMP FORM STYLING --- */
-#mc_embed_signup {
-    width: 100%;
-}
+/* --- FORM AS PROGRESS BAR --- */
+#mc_embed_signup { width: 100%; max-width: 500px; }
 
 .input-group {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid var(--terminal-green);
-    margin-bottom: 20px;
-    background: rgba(0, 20, 0, 0.3);
+    gap: 15px;
 }
 
-.prompt {
-    padding: 10px;
-    color: var(--terminal-green);
-    font-weight: bold;
-    user-select: none;
+/* The container that looks like a progress bar */
+.progress-bar-container {
+    flex-grow: 1;
+    height: 30px;
+    border: 2px solid var(--terminal-green);
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    background: rgba(85, 255, 85, 0.1);
 }
 
+/* The "blocks" inside the progress bar */
+.progress-blocks {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    left: 4px;
+    pointer-events: none; /* So you can type through them */
+}
+
+.progress-blocks span {
+    width: 15px;
+    height: 20px;
+    background-color: var(--terminal-green);
+    opacity: 0.8;
+    box-shadow: 0 0 5px var(--terminal-green);
+}
+
+/* The actual input field is invisible but sits on top */
 .terminal-input {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
     background: transparent;
     border: none;
-    color: #fff;
+    color: transparent; /* Hide typed text so blocks show */
+    caret-color: var(--terminal-green);
     font-family: inherit;
-    font-size: 1rem;
-    width: 100%;
-    padding: 10px;
+    padding-left: 5px;
     outline: none;
-    caret-color: var(--terminal-green); /* The blinking cursor color */
 }
 
-.terminal-input::placeholder {
-    color: var(--dim-gray);
-    opacity: 0.5;
-}
+/* Hide placeholder so it doesn't clash with blocks */
+.terminal-input::placeholder { color: transparent; }
 
 .terminal-btn {
     background: transparent;
-    border: 1px solid var(--terminal-green);
+    border: 2px solid var(--terminal-green);
     color: var(--terminal-green);
-    padding: 10px 30px;
+    padding: 5px 15px;
+    height: 30px;
     font-family: inherit;
-    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    width: 100%;
+    white-space: nowrap;
+    text-shadow: inherit;
+    box-shadow: inherit;
 }
 
 .terminal-btn:hover {
     background: var(--terminal-green);
-    color: black;
-    box-shadow: 0 0 15px var(--terminal-green);
+    color: var(--screen-black);
 }
 
 /* --- FOOTER & SPECTROGRAM --- */
 .terminal-footer {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    font-size: 0.7rem;
-    color: var(--dim-gray);
+    justify-content: space-between;
+    border-top: 1px solid rgba(85, 255, 85, 0.3);
+    padding-top: 15px;
+    margin-top: auto; /* Pushes to bottom */
 }
 
 .spectrogram {
     display: flex;
-    gap: 2px;
-    height: 30px;
-    align-items: flex-end;
+    align-items: center;
+    gap: 3px;
+    height: 40px;
+    flex-grow: 1;
+    margin-right: 20px;
+    overflow: hidden;
 }
 
+/* The wave bars */
 .spectrogram span {
-    width: 4px;
-    background-color: var(--alert-red);
-    opacity: 0.7;
+    width: 3px;
+    background-color: var(--terminal-green);
+    box-shadow: 0 0 4px var(--terminal-green);
     animation: audio-wave 1s ease-in-out infinite;
 }
 
-/* Randomize animations for the bars to look like noise */
-.spectrogram span:nth-child(odd) { animation-duration: 0.8s; }
-.spectrogram span:nth-child(2n) { animation-duration: 1.1s; }
-.spectrogram span:nth-child(3n) { animation-duration: 1.3s; }
-.spectrogram span:nth-child(4n) { animation-duration: 0.9s; }
+/* Randomize wave heights */
+.spectrogram span:nth-child(odd) { animation-duration: 0.7s; height: 10%; }
+.spectrogram span:nth-child(2n) { animation-duration: 1.1s; height: 20%; }
+.spectrogram span:nth-child(3n) { animation-duration: 1.3s; height: 40%; }
+.spectrogram span:nth-child(5n) { animation-duration: 0.5s; height: 60%; }
 
 @keyframes audio-wave {
-    0%, 100% { height: 5px; }
-    50% { height: 25px; }
+    0%, 100% { transform: scaleY(1); opacity: 0.5; }
+    50% { transform: scaleY(3); opacity: 1; }
+}
+
+.mute-text {
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
