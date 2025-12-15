@@ -8,51 +8,40 @@
 </head>
 <body>
 
-    <div class="monitor-bezel">
-        <div class="crt-screen">
-            
-            <div class="scanlines"></div>
-            <div class="screen-glow"></div>
+    <div class="terminal-cutout">
+        
+        <div class="cctv-grid"></div>
+        <div class="scanlines"></div>
+        <div class="vignette"></div>
 
-            <div class="header-bar">
-                <span>RDP-OS v3.0 [OFFLINE]</span>
-                <span class="blink">SIGNAL LOST</span>
+        <div class="screen-content">
+            
+            <div class="status-bar">
+                <span>REC [●]</span>
+                <span class="time-code">00:00:00:00</span>
+                <span>CAM_04</span>
             </div>
 
-            <main class="content-wrapper">
-                
-                <div class="eye-container">
+            <div class="center-stage">
+                <div class="radar-housing">
                     <div class="radar-sweep"></div>
                     <img src="media/logo-red.png" alt="RDP EYE" class="rdp-eye">
                 </div>
+            </div>
 
-                <p class="terminal-text">
-                    ENTER DECRYPTION KEY:
-                </p>
-
+            <div class="command-zone">
+                <p class="cmd-prompt">ENTER_DECRYPTION_KEY:</p>
+                
                 <div id="mc_embed_shell">
                     <div id="mc_embed_signup">
                         <form action="YOUR_MAILCHIMP_ACTION_URL_HERE" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_self" novalidate="">
                             
-                            <div class="input-group">
-                                <div class="progress-bar-container">
-                                    <div class="progress-blocks">
-                                        <span></span><span></span><span></span><span></span><span></span>
-                                        <span></span><span></span><span></span>
-                                    </div>
-                                    <input type="email" value="" name="EMAIL" class="required email terminal-input" id="mce-EMAIL" required="" placeholder="████████">
-                                </div>
-                                
-                                <div class="submit-container">
-                                    <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button terminal-btn" value="[ EXECUTE ]">
-                                </div>
+                            <div class="input-wrapper">
+                                <span class="arrow">></span>
+                                <input type="email" value="" name="EMAIL" class="terminal-input" id="mce-EMAIL" required="" placeholder="___">
+                                <button type="submit" class="submit-btn">EXEC</button>
                             </div>
 
-                            <div id="mce-responses" class="clear foot">
-                                <div class="response" id="mce-error-response" style="display: none;"></div>
-                                <div class="response" id="mce-success-response" style="display: none;"></div>
-                            </div>
-                            
                             <div aria-hidden="true" style="position: absolute; left: -5000px;">
                                 <input type="text" name="b_YOUR_TAG_HERE" tabindex="-1" value="">
                             </div>
@@ -60,19 +49,30 @@
                         </form>
                     </div>
                 </div>
+            </div>
 
-            </main>
+            <div class="footer-bar">
+                <div class="audio-viz">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="copyright">RDP © 2025</div>
+            </div>
 
-            <footer class="terminal-footer">
-                <div class="spectrogram">
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span><span></span>
-                    </div>
-                <div class="mute-text">MUTE</div>
-            </footer>
+        </div>
+    </div>
 
-        </div> </div> </body>
+    <script>
+        // Optional: Updates the timecode to look real
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toISOString().split('T')[1].slice(0, 8);
+            const ms = Math.floor(now.getMilliseconds() / 10).toString().padStart(2, '0');
+            document.querySelector('.time-code').innerText = `${timeString}:${ms}`;
+        }
+        setInterval(updateTime, 40);
+    </script>
+
+</body>
 </html>
