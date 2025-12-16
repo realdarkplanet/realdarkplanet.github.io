@@ -18,12 +18,12 @@ body {
     color: var(--cctv-green);
     font-family: "Courier New", Courier, monospace;
     
-    /* MOBILE FIX: Use min-height instead of fixed height so it can grow */
+    /* MOBILE FIX: Use min-height so it allows scrolling */
     min-height: 100vh;
     width: 100vw;
     margin: 0;
     
-    /* MOBILE FIX: Allow scrolling (removed overflow: hidden) */
+    /* Center the monitor on desktop */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,38 +33,44 @@ body {
 .terminal-cutout {
     position: relative;
     
-    /* Shape & Sizing */
+    /* SIZE & ASPECT RATIO */
     width: 100%;
-    max-width: 800px;
-    aspect-ratio: 4 / 3; /* Classic TV Shape */
+    max-width: 850px;
+    aspect-ratio: 4 / 3; 
     
-    /* CURVE UPDATE: This creates the old monitor shape */
-    border-radius: 25px; 
+    /* --- THE "OLD MONITOR" CURVE --- */
+    /* This curves the edges, not just corners. It simulates a convex screen. */
+    border-radius: 50% / 10%; 
+    /* A small fallback curve for the sides */
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
     
-    /* Contrast & Depth */
+    /* DEPTH: Inset shadow creates the "thick glass" feel */
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
+    
+    /* Background & Bezel */
     background-color: var(--cctv-bg);
-    border: 2px solid #111; /* Subtle bezel */
+    border: 3px solid #111; /* Dark physical bezel */
     
-    /* Inner shadow to fake curved glass depth */
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
-    
-    /* Internal Layout */
+    /* Layout */
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Clips content to the curved corners */
+    overflow: hidden; /* Clips content to the curved shape */
 }
 
-/* --- 3. MOBILE OPTIMIZATION (THE FIX) --- */
+/* --- 3. MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
     .terminal-cutout {
-        /* Break the box shape so it fills the phone screen */
+        /* On mobile, we flatten the curve slightly for usability */
         width: 100%;
         max-width: none;
         height: auto;
         min-height: 100vh;
         aspect-ratio: unset;
         
-        /* Remove curve on mobile for full immersion (optional, but recommended) */
+        /* Remove the heavy distortion so text is readable */
         border-radius: 0;
         border: none;
         box-shadow: none;
@@ -73,24 +79,27 @@ body {
     .screen-content {
         padding: 20px;
         /* Extra padding at bottom so keyboard doesn't hide input */
-        padding-bottom: 120px; 
+        padding-bottom: 150px; 
         
         /* Stack items naturally */
         justify-content: flex-start;
-        gap: 40px;
+        gap: 30px;
     }
 
-    /* Adjust eye size for mobile */
+    /* Adjust sizing for small screens */
     .radar-housing {
-        width: 150px;
-        height: 150px;
+        width: 180px;
+        height: 180px;
     }
     
+    .status-bar {
+        font-size: 11px;
+    }
+
     /* Make input easier to tap */
     .input-wrapper {
         padding: 15px;
     }
-    
     .terminal-input {
         font-size: 16px; /* Prevents auto-zoom on iPhone */
     }
@@ -120,8 +129,8 @@ body {
     height: 100%;
     background: repeating-linear-gradient(
         0deg,
-        rgba(0,0,0,0.15),
-        rgba(0,0,0,0.15) 1px,
+        rgba(0,0,0,0.1),
+        rgba(0,0,0,0.1) 1px,
         transparent 1px,
         transparent 3px
     );
@@ -135,10 +144,23 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Darkens corners to enhance curve effect */
-    background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.9) 100%);
+    /* Darkens corners strongly */
+    background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.95) 100%);
     pointer-events: none;
     z-index: 3;
+}
+
+/* New: Fake Glare on the "Glass" */
+.screen-glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 4;
+    border-radius: 50% / 20%; /* Curves the glare */
 }
 
 /* --- 5. CONTENT LAYOUT --- */
@@ -166,6 +188,7 @@ body {
 }
 .time-code {
     font-family: monospace;
+    color: #fff; /* White for better visibility */
 }
 
 /* Center Eye & Radar */
@@ -178,8 +201,8 @@ body {
 
 .radar-housing {
     position: relative;
-    width: 220px;
-    height: 220px;
+    width: 240px;
+    height: 240px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -188,8 +211,7 @@ body {
 .rdp-eye {
     width: 70%;
     height: auto;
-    /* Only the Red Eye gets the red glow */
-    filter: drop-shadow(0 0 8px var(--alert-red));
+    filter: drop-shadow(0 0 10px var(--alert-red));
     position: relative;
     z-index: 5;
 }
@@ -211,7 +233,7 @@ body {
 /* Command Zone (Input) */
 .command-zone {
     width: 100%;
-    max-width: 450px;
+    max-width: 480px;
     align-self: center;
     margin-bottom: 10px;
 }
@@ -227,7 +249,7 @@ body {
     display: flex;
     align-items: center;
     border: 2px solid var(--cctv-green);
-    background: rgba(0, 20, 0, 0.8); /* Dark background for readability */
+    background: rgba(0, 20, 0, 0.85);
     padding: 12px;
 }
 
@@ -272,17 +294,29 @@ body {
     padding-top: 10px;
 }
 
+/* Audio Visualizer (Clickable) */
 .audio-viz {
     display: flex;
     gap: 3px;
     height: 100%;
     align-items: flex-end;
+    cursor: pointer; /* Shows hand cursor */
+    transition: opacity 0.3s;
 }
+
+.audio-viz:hover {
+    opacity: 1 !important; /* Glow on hover */
+}
+
 .audio-viz span {
     width: 4px;
     background: var(--cctv-green);
+    /* Animation definition */
     animation: wave 1s ease-in-out infinite;
+    /* Initially paused until JS starts it */
+    animation-play-state: paused; 
 }
+
 /* Randomized wave heights */
 .audio-viz span:nth-child(odd) { animation-duration: 0.6s; }
 .audio-viz span:nth-child(even) { animation-duration: 1.1s; }
