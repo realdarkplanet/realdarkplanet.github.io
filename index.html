@@ -13,19 +13,18 @@
         <div class="cctv-grid"></div>
         <div class="scanlines"></div>
         <div class="vignette"></div>
-
-        <div class="screen-content">
+        <div class="screen-glare"></div> <div class="screen-content">
             
             <div class="status-bar">
                 <span>REC [●]</span>
-                <span class="time-code">00:00:00:00</span>
+                <span class="time-code">LOADING...</span>
                 <span>CAM_04</span>
             </div>
 
             <div class="center-stage">
                 <div class="radar-housing">
                     <div class="radar-sweep"></div>
-                    <img src="media/logo-red.png" alt="RDP EYE" class="rdp-eye">
+                    <img src="media/logo.png" alt="RDP EYE" class="rdp-eye">
                 </div>
             </div>
 
@@ -52,7 +51,7 @@
             </div>
 
             <div class="footer-bar">
-                <div class="audio-viz">
+                <div class="audio-viz" title="TOGGLE AUDIO">
                     <span></span><span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span><span></span>
@@ -63,14 +62,65 @@
         </div>
     </div>
 
+    <audio id="bg-audio" loop>
+        <source src="media/jazz.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toISOString().split('T')[1].slice(0, 8);
-            const ms = Math.floor(now.getMilliseconds() / 10).toString().padStart(2, '0');
-            document.querySelector('.time-code').innerText = `${timeString}:${ms}`;
+        /* --- 1. COUNTDOWN LOGIC (DEC 29, 2026) --- */
+        function updateCountdown() {
+            // Target Date: December 29, 2026
+            const targetDate = new Date("December 29, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // If drop date passed
+            if (distance < 0) {
+                document.querySelector('.time-code').innerText = "SYSTEM_UNLOCKED";
+                return;
+            }
+
+            // Calc units
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const ms = Math.floor((distance % 1000) / 10); // Pseudo-milliseconds
+
+            // Format: T-MINUS D:HH:MM:SS:MS
+            // We use padStart to ensure "09" instead of "9"
+            const timeString = `T-${days}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${ms.toString().padStart(2, '0')}`;
+            
+            document.querySelector('.time-code').innerText = timeString;
         }
-        setInterval(updateTime, 40);
+        
+        // Update super fast for that "military computer" feel
+        setInterval(updateCountdown, 41); 
+
+        /* --- 2. AUDIO TOGGLE LOGIC --- */
+        const audio = document.getElementById('bg-audio');
+        const visualizer = document.querySelector('.audio-viz');
+        const bars = document.querySelectorAll('.audio-viz span');
+        let isPlaying = false;
+
+        // Set initial state: Low opacity, no animation
+        visualizer.style.opacity = '0.3';
+        bars.forEach(bar => bar.style.animationPlayState = 'paused');
+        audio.volume = 0.4; // 40% volume
+
+        visualizer.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                visualizer.style.opacity = '0.3';
+                bars.forEach(bar => bar.style.animationPlayState = 'paused');
+            } else {
+                audio.play().catch(e => console.log("Audio play failed (user interaction needed):", e));
+                visualizer.style.opacity = '1';
+                bars.forEach(bar => bar.style.animationPlayState = 'running');
+            }
+            isPlaying = !isPlaying;
+        });
+
     </script>
 
 </body>
