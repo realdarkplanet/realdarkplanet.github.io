@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REAL DARK PLANET // SYSTEM ACCESS</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -13,7 +14,9 @@
         <div class="cctv-grid"></div>
         <div class="scanlines"></div>
         <div class="vignette"></div>
-        <div class="screen-glare"></div> <div class="screen-content">
+        <div class="screen-glare"></div>
+
+        <div class="screen-content">
             
             <div class="status-bar">
                 <span>REC [●]</span>
@@ -24,12 +27,12 @@
             <div class="center-stage">
                 <div class="radar-housing">
                     <div class="radar-sweep"></div>
-                    <img src="media/logo.png" alt="RDP EYE" class="rdp-eye">
+                    <img src="media/logo-red.png" alt="RDP EYE" class="rdp-eye">
                 </div>
             </div>
 
             <div class="command-zone">
-                <p class="cmd-prompt">ENTER_DECRYPTION_KEY:</p>
+                <p class="cmd-prompt">ENTER_EMAIL_ADDRESS:</p>
                 
                 <div id="mc_embed_shell">
                     <div id="mc_embed_signup">
@@ -51,11 +54,25 @@
             </div>
 
             <div class="footer-bar">
+                
                 <div class="audio-viz" title="TOGGLE AUDIO">
                     <span></span><span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span><span></span>
                 </div>
+
+                <div class="social-dock">
+                    <a href="https://instagram.com" target="_blank" class="social-link">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" class="social-link">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="mailto:contact@realdarkplanet.com" class="social-link">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                </div>
+
                 <div class="copyright">RDP © 2025</div>
             </div>
 
@@ -67,34 +84,26 @@
     </audio>
 
     <script>
-        /* --- 1. COUNTDOWN LOGIC (DEC 29, 2026) --- */
+        /* --- 1. COUNTDOWN LOGIC --- */
         function updateCountdown() {
-            // Target Date: December 29, 2026
             const targetDate = new Date("December 29, 2026 00:00:00").getTime();
             const now = new Date().getTime();
             const distance = targetDate - now;
 
-            // If drop date passed
             if (distance < 0) {
                 document.querySelector('.time-code').innerText = "SYSTEM_UNLOCKED";
                 return;
             }
 
-            // Calc units
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            const ms = Math.floor((distance % 1000) / 10); // Pseudo-milliseconds
+            const ms = Math.floor((distance % 1000) / 10);
 
-            // Format: T-MINUS D:HH:MM:SS:MS
-            // We use padStart to ensure "09" instead of "9"
             const timeString = `T-${days}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${ms.toString().padStart(2, '0')}`;
-            
             document.querySelector('.time-code').innerText = timeString;
         }
-        
-        // Update super fast for that "military computer" feel
         setInterval(updateCountdown, 41); 
 
         /* --- 2. AUDIO TOGGLE LOGIC --- */
@@ -103,10 +112,9 @@
         const bars = document.querySelectorAll('.audio-viz span');
         let isPlaying = false;
 
-        // Set initial state: Low opacity, no animation
         visualizer.style.opacity = '0.3';
         bars.forEach(bar => bar.style.animationPlayState = 'paused');
-        audio.volume = 0.4; // 40% volume
+        audio.volume = 0.4;
 
         visualizer.addEventListener('click', () => {
             if (isPlaying) {
@@ -114,13 +122,12 @@
                 visualizer.style.opacity = '0.3';
                 bars.forEach(bar => bar.style.animationPlayState = 'paused');
             } else {
-                audio.play().catch(e => console.log("Audio play failed (user interaction needed):", e));
+                audio.play().catch(e => console.log("Audio play failed:", e));
                 visualizer.style.opacity = '1';
                 bars.forEach(bar => bar.style.animationPlayState = 'running');
             }
             isPlaying = !isPlaying;
         });
-
     </script>
 
 </body>
