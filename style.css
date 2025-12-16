@@ -38,14 +38,10 @@ body {
     max-width: 850px;
     aspect-ratio: 4 / 3; 
     
-    /* --- THE "OLD MONITOR" CURVE --- */
-    /* This curves the edges, not just corners. It simulates a convex screen. */
-    border-radius: 50% / 10%; 
-    /* A small fallback curve for the sides */
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
+    /* --- THE "OLD MONITOR" CURVE (UPDATED) --- */
+    /* 60px creates soft corners */
+    /* 50% forces the vertical sides to bow outward like a glass tube */
+    border-radius: 60px / 50%; 
     
     /* DEPTH: Inset shadow creates the "thick glass" feel */
     box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
@@ -150,7 +146,7 @@ body {
     z-index: 3;
 }
 
-/* New: Fake Glare on the "Glass" */
+/* Fake Glare on the "Glass" */
 .screen-glare {
     position: absolute;
     top: 0;
@@ -188,7 +184,8 @@ body {
 }
 .time-code {
     font-family: monospace;
-    color: #fff; /* White for better visibility */
+    color: var(--cctv-green); /* RESTORED TO GREEN */
+    text-shadow: 0 0 4px var(--cctv-green); /* Adds CRT Bloom */
 }
 
 /* Center Eye & Radar */
