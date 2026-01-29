@@ -23,18 +23,27 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden; /* Prevent accidental side scrolling */
 }
 
 /* --- 2. THE CUTOUT (THE MONITOR) --- */
 .terminal-cutout {
     position: relative;
+    
+    /* DEFAULT (MOBILE FIRST) */
     width: 100%;
-    max-width: 850px;
+    max-width: 850px; /* Fallback */
     aspect-ratio: 4 / 3; 
+    
+    /* THE "OLD MONITOR" CURVE */
     border-radius: 60px / 50%; 
+    
+    /* DEPTH */
     box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
+    
     background-color: var(--cctv-bg);
     border: 3px solid #111; 
+    
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -218,10 +227,10 @@ body {
     margin-bottom: 10px;
 }
 
-/* --- UPDATED PROMPT: SIZE MATCHES SUBMIT --- */
+/* Prompt */
 .cmd-prompt {
     font-family: 'Courier New', monospace;
-    font-size: 14px;  /* Match Submit Button */
+    font-size: 14px;  
     color: var(--cctv-green);
     margin-bottom: 8px;
     letter-spacing: 1px;
@@ -261,34 +270,26 @@ body {
     cursor: pointer;
     font-family: inherit;
     text-transform: uppercase;
-    font-size: 14px; /* The Anchor Size */
+    font-size: 14px; 
 }
 .submit-btn:hover { 
     background: #fff; 
     box-shadow: 0 0 10px #fff;
 }
 
-/* --- UPDATED WARNING: SIZE, BRIGHTNESS, SPACING --- */
+/* Warning Text */
 .legal-disclaimer {
     font-family: 'Courier New', monospace;
-    font-size: 14px;     /* Match Submit Button */
+    font-size: 14px;     
     color: #FF0000;      
-    
-    /* Reduced Spacing (was 40px) */
     margin-top: 20px;    
-    
     display: block;
-    
-    /* Reduced Brightness (was 1.0) */
     opacity: 0.85;       
-    
     line-height: 1.4;
     text-transform: uppercase;
     text-align: left;
     max-width: 600px;
     letter-spacing: 0.5px;
-    
-    /* Softened Glow */
     text-shadow: 0 0 4px rgba(255, 0, 0, 0.4); 
 }
 
@@ -361,4 +362,17 @@ body {
     letter-spacing: 2px;
     position: relative;
     z-index: 20;
+}
+
+/* --- 6. DESKTOP ZOOM ADJUSTMENT --- */
+/* Only applies to screens wider than mobile/tablet */
+@media (min-width: 1024px) {
+    .terminal-cutout {
+        /* Instead of fixed pixel width, use Height scaling */
+        height: 85vh; /* Fills 85% of your screen height */
+        width: auto;  /* Width adjusts automatically */
+        
+        /* Ensure it doesn't get TOO wide on Ultra-Wides */
+        max-width: 1400px; 
+    }
 }
