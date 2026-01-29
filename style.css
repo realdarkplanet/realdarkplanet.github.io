@@ -271,16 +271,16 @@ body {
 /* --- UPDATED WARNING: SIZE, BRIGHTNESS, SPACING --- */
 .legal-disclaimer {
     font-family: 'Courier New', monospace;
-    font-size: 10px;     /* Match Submit Button */
+    font-size: 14px;     /* Match Submit Button */
     color: #FF0000;      
     
     /* Reduced Spacing (was 40px) */
-    margin-top: 5px;    
+    margin-top: 20px;    
     
     display: block;
     
     /* Reduced Brightness (was 1.0) */
-    opacity: 0.6;       
+    opacity: 0.85;       
     
     line-height: 1.4;
     text-transform: uppercase;
