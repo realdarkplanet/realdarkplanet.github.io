@@ -351,3 +351,26 @@ body {
     position: relative;
     z-index: 20;
 }
+
+.legal-disclaimer {
+    font-family: 'Courier New', monospace;
+    
+    /* Increased size to match the prompt */
+    font-size: 1rem; 
+    
+    /* The EXACT Red from your Logo */
+    color: #FF0000;    
+    
+    /* Increased spacing from the button */
+    margin-top: 35px;
+    
+    opacity: 1;      
+    line-height: 1.4;
+    text-transform: uppercase;
+    text-align: left;
+    max-width: 600px;
+    letter-spacing: 0.5px;
+    
+    /* Red glow to match the logo intensity */
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.6); 
+}
